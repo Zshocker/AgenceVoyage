@@ -1,13 +1,17 @@
 package Agence;
 
+import java.io.*;
+import java.nio.file.Paths;
 import java.util.*;
 
-public class Client
+public class Client implements Serializable
 {
+    public static final String facturePlace= Paths.get("").toAbsolutePath().toString()+"/";
     private String nom;
     private String prenom;
     private int numPass;
     private final List<Reservation> reservations=new LinkedList<>();
+    public Client(){}
     public Client(String nom, String prenom, int numPass) {
         this.nom = nom;
         this.prenom = prenom;
@@ -41,9 +45,9 @@ public class Client
     public List<Reservation> getReservations() {
         return reservations;
     }
-    public String facture()
+    public String Retfacture()
     {
-        StringBuffer stringBuffer=new StringBuffer();
+        StringBuilder stringBuffer=new StringBuilder();
         stringBuffer.append("nom : ").append(this.nom).append("\n");
         stringBuffer.append("prenom : ").append(this.prenom).append("\n");
         stringBuffer.append("num de passport : ").append(this.numPass).append("\n");
@@ -59,5 +63,39 @@ public class Client
         }
         if(type!=null) stringBuffer.append("type : ").append(type).append("\n");
         return stringBuffer.toString();
+    }
+    public String facture(){
+        String uniqueName=facturePlace+"Facture_"+nom+"_"+numPass+"_"+UUID.randomUUID().toString()+".txt";
+        File file=new File(uniqueName);
+        String fact=Retfacture();
+        FileWriter fileWriter=null;
+        try {
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            fileWriter=new FileWriter(file);
+            fileWriter.write(fact);
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(fileWriter!=null){
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return fact;
+    }
+
+    @Override
+    public String toString() {
+        return "" +
+                "nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", numPass=" + numPass
+                ;
     }
 }

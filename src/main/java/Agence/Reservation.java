@@ -1,8 +1,9 @@
 package Agence;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Reservation
+public class Reservation implements Serializable
 {
     private Client client;
     private Date date=new Date();

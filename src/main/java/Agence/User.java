@@ -1,6 +1,8 @@
 package Agence;
 
-public class User
+import java.io.Serializable;
+
+public class User implements Serializable
 {
     private String login;
     private String password;
@@ -41,4 +43,5 @@ public class User
     public void setRole(String role) {
         this.role = role;
     }
+
 }

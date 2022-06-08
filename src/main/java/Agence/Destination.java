@@ -1,9 +1,10 @@
 package Agence;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Destination
+public class Destination implements Serializable
 {
     private String destination;
     private double prix;
@@ -31,10 +32,9 @@ public class Destination
 
     @Override
     public String toString() {
-        return "{" +
-                "destination : " + destination + ' ' +
-                ", prix : " + prix + " $ " +
-                '}';
+        return "destination : " + destination + ' ' +
+                ", prix : " + prix + " $ "
+                ;
     }
 
     public List<Reservation> getReservations() {
